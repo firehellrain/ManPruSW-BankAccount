@@ -2,7 +2,7 @@ public class BankMain {
 
     public static void main(String args[]){
         BankAccount bank =new BankAccount(10);
-        double total_amount =10000; 
+        double total_amount = 10000;
         double interes = 0.001;
         int months = 12;
 
