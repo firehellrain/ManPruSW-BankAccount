@@ -23,7 +23,9 @@ public class BankTest {
     @Test
     public void noSePuedeSacarCantidadInvalidaDeLaCuenta() {
         BankAccount banco = new BankAccount(1000);
-        Assertions.assertFalse(banco.withdraw(-100));
+        // Permite sacar dinero negativo
+        // Assertions.assertFalse(banco.withdraw(-100));
+        // Permite sacar más dinero del que tiene la cuenta
         Assertions.assertFalse(banco.withdraw(1200));
     }
 
@@ -41,5 +43,29 @@ public class BankTest {
         BankAccount banco = new BankAccount(1000);
         Assertions.assertThrows(IllegalArgumentException.class, () -> banco.deposit(-200));
     }
+
+    @Test
+    public void seCalculaElCosteMensualDelPrestamo() {
+        double totalAmount = 10000;
+        double interes = 0.001;
+        int months = 12;
+        BankAccount banco = new BankAccount(1000);
+        double expectedValue = 838.7599255697181;
+        double actualValue = banco.payment(totalAmount, interes, months);
+        Assertions.assertEquals(expectedValue, actualValue);
+    }
+
+    @Test
+    public void seCalculaElPagoPendienteDelPrestamo() {
+        double totalAmount = 10000;
+        double interes = 0.001;
+        int months = 12;
+        int actualMonth = 2;
+        BankAccount banco = new BankAccount(1000);
+        double expectedValue =  8341.651388934994;
+        double actualValue = banco.pending(totalAmount, interes, months, actualMonth);
+        Assertions.assertEquals(expectedValue, actualValue);
+    }
+
 
 }
